@@ -1,17 +1,19 @@
-import { Suspense } from "react";
-import MovieInfo from "./MovieInfo";
-import MovieVideos from "./MovieVideos";
-import { MovieProps } from "./MovieType";
-
-export default function MovieDetailComponent({ id }: MovieProps) {
-  return (
-    <>
-      <Suspense fallback={<h1>INfo Loading...</h1>}>
-        <MovieInfo id={id} />
-      </Suspense>
-      <Suspense fallback={<h2>Video Loading...</h2>}>
-        <MovieVideos id={id} />
-      </Suspense>
-    </>
-  );
+import Link from "next/link";
+import styles from "../../styles/movie.module.css";
+interface MovieProps {
+  id: number;
+  posterPath: string;
+  title: string;
 }
+const Movie = ({ id, posterPath, title }: MovieProps) => {
+  return (
+    <div className={styles.movie}>
+      <Link href={`/movies/${id}`} key={id}>
+        <img src={posterPath} alt={title} />
+        <p>{title}</p>
+      </Link>
+    </div>
+  );
+};
+
+export default Movie;
